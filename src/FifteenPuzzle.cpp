@@ -18,7 +18,7 @@ FifteenPuzzle::FifteenPuzzle() { // @suppress("Class members should be properly 
 		}
 	}
 
-	this->board[this->size-1][this->size] = 0;
+	this->board[this->size-1][this->size-1] = 0;
 	this->EmptyCol = size-1;
 	this->EmptyRow = size-1;
 
@@ -83,3 +83,18 @@ void FifteenPuzzle::display() const {
 	cout << "+----+----+----+----+\n";
 }
 
+bool FifteenPuzzle::isSolved() const {
+	int value = 1 ;
+	for (int i=0; i<this->size; ++i) {
+		for (int j=0; j<this->size; ++j) {
+			if (i == this->size-1 && j == this->size-1) {
+				return this->board[i][j] == 0;
+			}
+
+			else if (this->board[i][j] != value++) {
+				return false;
+			}
+		}
+	}
+	return true;
+}

@@ -1,8 +1,11 @@
 #include "FifteenPuzzle.h"
+using namespace std;
 
 #include <iostream>
-using namespace std;
 #include <vector>
+#include <random>
+#include <ctime>
+#include <iomanip>
 
 
 FifteenPuzzle::FifteenPuzzle() { // @suppress("Class members should be properly initialized")
@@ -11,11 +14,11 @@ FifteenPuzzle::FifteenPuzzle() { // @suppress("Class members should be properly 
 	int value = 1;
 	for (int i=0; i<size; i++){
 		for (int j=0; j<size; j++){
-			board[i][j]==value++;
+			this->board[i][j] = value++;
 		}
 	}
 
-	board[this->size-1][this->size] == 0;
+	this->board[this->size-1][this->size] = 0;
 	this->EmptyCol = size-1;
 	this->EmptyRow = size-1;
 
@@ -25,7 +28,7 @@ bool FifteenPuzzle::moveTile(char key){
 	int newRow = this->EmptyRow;
 	int newCol = this->EmptyCol;
 
-	switch(char direction) {
+	switch(key) {
 	case 'W': case 'w' : newRow--; break;
 	case 'S': case 's' : newRow++; break;
 	case 'A': case 'a' : newCol--; break;
@@ -44,5 +47,39 @@ bool FifteenPuzzle::moveTile(char key){
 	this->EmptyCol = newCol;
 
 	return true;
+}
+
+
+void FifteenPuzzle::shuffle(int moves) {
+	// mersenne twister random number generator algorithm seeded with time
+	mt19937 rng(static_cast<unsigned int>(time(nullptr)));
+
+	for (int i=0; i<moves; ++i) {
+		// check for the possible moves and inserting them into a vector for later use
+		vector<char> possibleMoves;
+		if (this->EmptyRow > 0) possibleMoves.push_back('w');
+		if (this->EmptyRow < this->size -1) possibleMoves.push_back('s');
+		if (this->EmptyCol > 0) possibleMoves.push_back('a');
+		if (this->EmptyCol < this->size -1) possibleMoves.push_back('d');
+
+		// Create a uniform distribution for integers from 0 to size-1
+		uniform_int_distribution<size_t> dist(0, possibleMoves.size()-1);
+		char direction = possibleMoves[dist(rng)];
+
+		moveTile(direction);
+	}
+}
+
+void FifteenPuzzle::display() const {
+	for (int i=0; i<size; i++) {
+		cout << "+----+----+----+----+\n";
+		for (int j=0; j<size; j++) {
+			cout << "| " ;
+			if (this->board[i][j] == 0)	cout << "   ";
+			else cout << setw(2) <<  this->board[i][j] << " ";
+		}
+		cout << "|\n";
+	}
+	cout << "+----+----+----+----+\n";
 }
 

@@ -14,7 +14,7 @@ private:
 
 public:
 	FifteenPuzzle();
-	void shuffle(int moves);
+	void shuffle(int moves = 100);
 	void display() const;
 	bool moveTile(char key);
 	bool isSolved() const;

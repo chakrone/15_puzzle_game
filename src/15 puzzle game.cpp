@@ -1,10 +1,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "FifteenPuzzle.h"
+
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl;
-	vector<vector<int>> board(4, vector<int>(4)) ;
+	FifteenPuzzle game;
+
+	game.shuffle();
+	game.display();
+
+
 	return 0;
 }

@@ -32,14 +32,18 @@ int main() {
 		}
 
 		if (game.moveTile(input)) {
-					counter++;
-				} else {
-					cout << "Invalid move! Try again." << endl;
-				}
+			counter++;
+		}
+		else {
+			cout << "Invalid move! Try again." << endl;
+		}
+
 
 		cout << "board state : " << endl;
 		game.display();
 	}
 
+	cin.ignore();
+	cin.get();
 	return 0;
 }

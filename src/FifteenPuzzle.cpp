@@ -37,7 +37,7 @@ bool FifteenPuzzle::moveTile(char key){
 	}
 
 	// check if move is valid
-	if (newRow<0 || newRow>this->size-1 || newCol<0 || newCol>this->size) {
+	if (newRow<0 || newRow>this->size-1 || newCol<0 || newCol>this->size-1) {
 		return false;
 	}
 
